@@ -9,12 +9,15 @@ and open the template in the editor.
         <title>Balanced Parentheses</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="WebSocket.js"></script>
+        <script src="BalancedParentheses.js"></script>
     </head>
     <body>
         <h1>Balanced Parentheses</h1>
-        <form onSubmit="JavaScript:runDemo()" method="get">
-          String to Check: <input type="text" name="string"><br>
-          <input type="submit" value="Submit">
+        <p>Determines if parentheses are balanced in the specified string.</p>
+        <form name="form" onSubmit="JavaScript:runDemo()" method="get">
+          String to Check: <input name="string" type="text" name="string" size="100" maxlength="100"><br>
+          <input type="button" value="Run" onClick="runDemo(); return false">
         </form>        
     </body>
 </html>
