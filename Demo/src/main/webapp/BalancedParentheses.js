@@ -11,8 +11,19 @@ function runDemo()
     var string = document.forms["form"]["string"].value;
     var message = {
         "string": string,
-        "delay" : 1000
+        "stepDelay" : 1000
     }
     webSocket.onopen = function(evt) {webSocketSend(webSocket, message)};
-    webSocket.onmessage = function(evt) {console.log("message received:" + evt.data)};
+    webSocket.onmessage = function(evt) {
+        var jsonData = JSON.parse(evt.data);
+        draw(jsonData);
+    };
 }
+
+function draw(data)
+{
+    console.log("draw " + data);
+    d3.select("#output");
+    
+}
+

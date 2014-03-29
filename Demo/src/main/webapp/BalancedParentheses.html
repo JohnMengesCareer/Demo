@@ -9,6 +9,7 @@ and open the template in the editor.
         <title>Balanced Parentheses</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="d3.js"></script>
         <script src="WebSocket.js"></script>
         <script src="BalancedParentheses.js"></script>
     </head>
@@ -18,6 +19,7 @@ and open the template in the editor.
         <form name="form" onSubmit="JavaScript:runDemo()" method="get">
           String to Check: <input name="string" type="text" name="string" size="100" maxlength="100"><br>
           <input type="button" value="Run" onClick="runDemo(); return false">
-        </form>        
+        </form>  
+        <div id="output"></div>
     </body>
 </html>
