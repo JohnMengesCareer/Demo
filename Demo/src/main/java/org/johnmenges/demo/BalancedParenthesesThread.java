@@ -6,12 +6,12 @@
 
 package org.johnmenges.demo;
 
-import javax.json.Json;
-import javax.json.JsonArrayBuilder;
-import javax.json.JsonObject;
-import javax.json.JsonObjectBuilder;
-import javax.json.JsonValue;
 import javax.websocket.Session;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.johnmenges.javaparser.JavaLexer;
+import org.johnmenges.javaparser.JavaParser;
 
 /**
  *
@@ -34,6 +34,14 @@ public class BalancedParenthesesThread extends Thread {
                 jsonHelper.getValue("elements", jsonHelper.getValue(chars))
                 );
         jsonHelper.send(session);
+        System.out.println("after send");
+        String klass = "class Foo {}";
+        ANTLRInputStream input = new ANTLRInputStream(klass);
+        JavaLexer lexer = new JavaLexer(input);
+        CommonTokenStream tokens = new CommonTokenStream(lexer);
+        JavaParser parser = new JavaParser(tokens);
+        ParseTree tree = parser.compilationUnit();
+        System.out.println(tree.toStringTree(parser));
     }
     
     private BalancedParenthesesInput input;
