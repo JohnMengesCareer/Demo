@@ -6,7 +6,6 @@
 
 package org.johnmenges.demo;
 
-import java.math.BigDecimal;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
@@ -18,36 +17,10 @@ import javax.websocket.Session;
  * @author JohnMenges
  */
 public class JsonHelper {
-    public JsonHelper()
+     public static void send(Session session, JsonValue value)
     {
-        objectBuilder = Json.createObjectBuilder();
-    }
-    
-    public JsonValue getValue(char[] chars)
-    {
-        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
-        for (int i = 0; i < chars.length; i++)
-        {
-            arrayBuilder.add(Character.toString(chars[i]));
-        }
-        return arrayBuilder.build();
-    }
-    
-    public void addValue(String tag, JsonValue value)
-    {
-        objectBuilder.add(tag, value);
-    }
-    
-    public JsonValue getValue(String tag, JsonValue value)
-    {
-        JsonObjectBuilder newObjectBuilder = Json.createObjectBuilder();
-        newObjectBuilder.add(tag, value);
-        return newObjectBuilder.build();
-    }
-    
-    public void send(Session session)
-    {
-        String message = objectBuilder.build().toString();
+        String message = value.toString();
+        System.out.println("send " + message);
         try
         {
             session.getBasicRemote().sendText(message);
@@ -55,8 +28,29 @@ public class JsonHelper {
         catch (Exception e)
         {
             System.out.println("send Exception: " + e.getMessage());
-        }
+        }        
     }
     
-    private JsonObjectBuilder objectBuilder;
+    public static void send(Session session, String tag, String[] strings)
+    {
+        send(session, getValue(tag, getArray(strings)));
+    }
+    
+    private static JsonValue getArray(String[] strings)
+    {
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        for (String s : strings)
+        {
+            arrayBuilder.add(s);
+        }
+        return arrayBuilder.build();
+    }
+    
+    private static JsonValue getValue(String tag, JsonValue value)
+    {
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        objectBuilder.add(tag, value);
+        return objectBuilder.build();
+    }
+    
 }

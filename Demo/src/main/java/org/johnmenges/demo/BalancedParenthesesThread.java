@@ -28,13 +28,13 @@ public class BalancedParenthesesThread extends Thread {
     public void run() {
         System.out.printf("thread %s\n", input);
         char[] chars = input.getString().toCharArray();
-        JsonHelper jsonHelper = new JsonHelper();
-        jsonHelper.addValue(
-                "array",
-                jsonHelper.getValue("elements", jsonHelper.getValue(chars))
-                );
-        jsonHelper.send(session);
-        System.out.println("after send");
+//        JsonHelper jsonHelper = new JsonHelper();
+//        jsonHelper.addValue(
+//                "array",
+//                jsonHelper.getValue("elements", jsonHelper.getValue(chars))
+//                );
+//        jsonHelper.send(session);
+//        System.out.println("after send");
         String klass = "class Foo {}";
         ANTLRInputStream input = new ANTLRInputStream(klass);
         JavaLexer lexer = new JavaLexer(input);
