@@ -114,17 +114,17 @@ public class JavaLexer extends Lexer {
 	}
 	private void WS_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 0: skip();  break;
+		case 0: _channel = HIDDEN;  break;
 		}
 	}
 	private void LINE_COMMENT_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 2: skip();  break;
+		case 2: _channel = HIDDEN;  break;
 		}
 	}
 	private void COMMENT_action(RuleContext _localctx, int actionIndex) {
 		switch (actionIndex) {
-		case 1: skip();  break;
+		case 1: _channel = HIDDEN;  break;
 		}
 	}
 	@Override

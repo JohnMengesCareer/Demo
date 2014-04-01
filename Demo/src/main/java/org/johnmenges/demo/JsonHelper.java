@@ -1,11 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package org.johnmenges.demo;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.json.Json;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
@@ -25,7 +21,7 @@ public class JsonHelper {
         {
             session.getBasicRemote().sendText(message);
         }
-        catch (Exception e)
+        catch (IOException e)
         {
             System.out.println("send Exception: " + e.getMessage());
         }        
@@ -36,7 +32,12 @@ public class JsonHelper {
         send(session, getValue(tag, getArray(strings)));
     }
     
-    private static JsonValue getArray(String[] strings)
+    public static <T> void send(Session session, String tag, ArrayList<NameValuePair<T>> pairs)
+    {
+        send(session, getValue(tag, getArray(pairs)));
+    }
+    
+    public static JsonValue getArray(String[] strings)
     {
         JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
         for (String s : strings)
@@ -46,7 +47,25 @@ public class JsonHelper {
         return arrayBuilder.build();
     }
     
-    private static JsonValue getValue(String tag, JsonValue value)
+    public static <T> JsonValue getArray(ArrayList<NameValuePair<T>> pairs)
+    {
+        JsonArrayBuilder arrayBuilder = Json.createArrayBuilder();
+        for (NameValuePair<T> pair : pairs)
+        {
+            JsonValue value = getValue(pair.getName(), pair.getValue().toString());
+            arrayBuilder.add(value);
+        }
+        return arrayBuilder.build();
+    }
+    
+    public static JsonValue getValue(String tag, JsonValue value)
+    {
+        JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
+        objectBuilder.add(tag, value);
+        return objectBuilder.build();
+    }
+    
+    public static JsonValue getValue(String tag, String value)
     {
         JsonObjectBuilder objectBuilder = Json.createObjectBuilder();
         objectBuilder.add(tag, value);
